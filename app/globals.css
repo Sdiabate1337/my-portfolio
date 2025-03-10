@@ -1,15 +1,14 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --custom-orange: #FE5F00;
+  --custom-blue: #1E3A8A;
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +19,90 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Enhanced gradient background with improved visual depth */
+.hero-bg {
+  background: linear-gradient(135deg, rgba(254, 95, 0, 0.08) 0%, rgba(160, 215, 255, 0.12) 100%);
+}
+
+.bg-gradient {
+  background: linear-gradient(110deg, var(--custom-orange) 0%, #FB8332 40%, #A0D7FF 100%);
+}
+
+.gradient-bg {
+  background-image: linear-gradient(to right, #FE5F00, #A0D7FF);
+}
+
+/* Enhanced button styles */
+.btn-primary {
+  @apply bg-custom-orange text-white px-7 py-4 rounded-full inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-opacity-90 hover:-translate-y-0.5;
+}
+
+/* Button Styles */
+.btn-primary-outline {
+  @apply border-2 border-custom-orange text-custom-orange font-medium px-6 py-3 rounded-full hover:bg-custom-orange hover:text-white transition-all duration-300 inline-flex items-center;
+}
+
+/* Remove service-specific styles */
+
+/* Enhanced skills showcase styling */
+.skills-showcase {
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.skills-showcase:hover {
+  transform: translateY(-5px);
+}
+
+.skill-pill {
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.skill-pill svg {
+  color: var(--custom-orange);
+}
+
+/* Add a subtle animation to the skills section */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.skills-showcase {
+  animation: float-subtle 5s ease-in-out infinite;
+}
+
+/* Menu button styling */
+.menu-btn {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  z-index: 60;
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Updated mobile menu animation */
+.mobile-menu {
+  transform-origin: top;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+/* Pour éviter le problème de défilement */
+body.menu-open {
+  overflow: hidden;
 }
