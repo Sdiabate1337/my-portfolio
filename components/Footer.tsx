@@ -1,137 +1,437 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { FiMail, FiPhone, FiMapPin, FiArrowUpRight } from 'react-icons/fi';
+import { FaWhatsapp, FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import Image from 'next/image';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const fadeInUpVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+
+  const staggerChildrenVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  const contactInfo = [
+    { 
+      icon: <FiMail />,
+      title: "EMAIL",
+      value: "diabatesekou1337@gmail.com",
+      color: "#FF5E15"
+    },
+    { 
+      icon: <FiPhone />,
+      title: "TÉLÉPHONE",
+      value: "+212 714460468",
+      color: "#3182CE"
+    },
+    { 
+      icon: <FaWhatsapp />,
+      title: "WHATSAPP",
+      value: "+212 714460468",
+      link: "https://wa.me/212714460468",
+      color: "#38A169"
+    },
+    { 
+      icon: <FiMapPin />,
+      title: "ADRESSE",
+      value: "Marrakech, Maroc",
+      color: "#805AD5"
+    }
+  ];
+  
+  const quickLinks = [
+    { title: "Accueil", href: "/" },
+    { title: "À propos", href: "/about" },
+    { title: "Services", href: "/services" },
+    { title: "Portfolio", href: "/portfolio" },
+    { title: "Contact", href: "/contact" }
+  ];
+  
+  const socialLinks = [
+    { 
+      icon: <FaGithub />, 
+      href: "https://github.com/diabsck", 
+      color: "#333",
+      hoverColor: "#171515"
+    },
+    { 
+      icon: <FaLinkedinIn />, 
+      href: "https://linkedin.com", 
+      color: "#0077B5",
+      hoverColor: "#0369a1"
+    },
+    { 
+      icon: <FaTwitter />, 
+      href: "https://twitter.com", 
+      color: "#1DA1F2",
+      hoverColor: "#0c87d3"
+    },
+    { 
+      icon: <FaFacebookF />, 
+      href: "https://facebook.com", 
+      color: "#1877F2",
+      hoverColor: "#0d64d2"
+    }
+  ];
+
   return (
-    <footer className="bg-gray-900 text-white py-10">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Contact Information */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Contact Information</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <div className="bg-orange-500 text-white rounded-full p-3 mr-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884l8 4.8a1 1 0 001.002 0l8-4.8A1 1 0 0018 5H2a1 1 0 00-.997.884zM18 8.118l-8 4.8-8-4.8V14a1 1 0 001 1h14a1 1 0 001-1V8.118z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-md font-medium">Email</h4>
-                  <p className="text-gray-400">mosharafhussain.manu@gmail.com</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-orange-500 text-white rounded-full p-3 mr-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-md font-medium">Phone</h4>
-                  <p className="text-gray-400">+8801744515670</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-green-500 text-white rounded-full p-3 mr-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.486 2 2 6.486 2 12c0 1.657.417 3.22 1.151 4.604L2 22l5.396-1.151C8.78 21.583 10.343 22 12 22c5.514 0 10-4.486 10-10S17.514 2 12 2zm-.25 15.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5zm2.25-4.5h-1.5v-3h-1v4h2.5v-1z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-md font-medium">WhatsApp</h4>
-                  <p className="text-gray-400">
-                    <a href="https://wa.me/8801744515670" target="_blank" rel="noopener noreferrer" className="text-green-500 hover:underline">
-                      +8801744515670
-                    </a>
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-orange-500 text-white rounded-full p-3 mr-4">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-md font-medium">Location</h4>
-                  <p className="text-gray-400">Jamalpur Sadar, Jamalpur Bangladesh</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          {/* Navigation Links */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-gray-400 hover:text-white transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/portfolio" className="text-gray-400 hover:text-white transition-colors">
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social Media Links */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Follow Me</h3>
-            <ul className="flex space-x-4">
-              <li>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22.675 0h-21.35C.595 0 0 .595 0 1.325v21.351C0 23.405.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.794.715-1.794 1.763v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.325-.595 1.325-1.324V1.325C24 .595 23.405 0 22.675 0z"/>
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.897-.959-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124-4.087-.205-7.713-2.165-10.141-5.144-.422.722-.666 1.561-.666 2.457 0 1.697.865 3.194 2.181 4.073-.803-.026-1.56-.247-2.228-.616v.061c0 2.367 1.684 4.342 3.918 4.788-.41.111-.84.171-1.285.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 14.002-7.496 14.002-13.986 0-.21 0-.42-.015-.63.961-.695 1.8-1.562 2.46-2.548l-.047-.02z"/>
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.58c-1.14 0-2.06-.93-2.06-2.07 0-1.14.92-2.07 2.06-2.07 1.14 0 2.06.93 2.06 2.07 0 1.14-.92 2.07-2.06 2.07zm14.11 12.87h-3.56v-5.6c0-1.34-.03-3.06-1.86-3.06-1.86 0-2.14 1.45-2.14 2.95v5.71h-3.56V9h3.42v1.56h.05c.48-.91 1.65-1.86 3.4-1.86 3.63 0 4.3 2.39 4.3 5.5v6.25z"/>
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.305-5.466-1.335-5.466-5.93 0-1.31.47-2.38 1.235-3.22-.125-.303-.535-1.523.115-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.655 1.653.245 2.873.12 3.176.77.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.62-5.475 5.92.43.37.81 1.096.81 2.21 0 1.595-.015 2.88-.015 3.27 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-8 text-center text-gray-400">
-          &copy; {new Date().getFullYear()} Your Name. All rights reserved.
-        </div>
+    <footer className="relative mt-20 overflow-hidden bg-gray-900 text-white">
+      {/* Vague décorative en haut du footer */}
+      <div className="absolute top-0 left-0 w-full">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full">
+          <path 
+            fill="#111827" 
+            fillOpacity="1" 
+            d="M0,64L60,69.3C120,75,240,85,360,80C480,75,600,53,720,48C840,43,960,53,1080,58.7C1200,64,1320,64,1380,64L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"
+          />
+        </svg>
+        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-gray-900"></div>
       </div>
+      
+      {/* Particules animées */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div 
+          className="absolute w-1 h-1 bg-orange-400 rounded-full"
+          style={{ top: '15%', left: '10%' }}
+          animate={{ 
+            y: [0, -30, 0],
+            opacity: [0.3, 0.8, 0.3]
+          }}
+          transition={{ 
+            duration: 4, 
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute w-2 h-2 bg-blue-400 rounded-full"
+          style={{ top: '45%', right: '15%' }}
+          animate={{ 
+            y: [0, -20, 0],
+            opacity: [0.2, 0.6, 0.2]
+          }}
+          transition={{ 
+            duration: 3, 
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute w-1.5 h-1.5 bg-purple-300 rounded-full"
+          style={{ bottom: '30%', left: '20%' }}
+          animate={{ 
+            y: [0, -25, 0],
+            opacity: [0.2, 0.7, 0.2]
+          }}
+          transition={{ 
+            duration: 5, 
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+      
+      <div className="container relative mx-auto px-6 py-16 z-10">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+          {/* Colonne Logo/Branding */}
+          <motion.div 
+            className="md:col-span-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUpVariants}
+          >
+            <div className="flex items-center mb-6">
+              <motion.div 
+                className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center shadow-lg mr-3"
+                whileHover={{ rotate: 10 }}
+              >
+                <span className="text-white text-xl font-bold">S</span>
+              </motion.div>
+              <h2 className="text-2xl font-bold">Sekou<span className="text-orange-500">Dev</span></h2>
+            </div>
+            
+            <p className="text-gray-400 mb-6">
+              Je transforme vos idées en solutions numériques performantes et innovantes, avec une expertise en développement web, DevOps et automatisation.
+            </p>
+            
+            {/* Réseaux sociaux */}
+            <motion.div 
+              className="flex space-x-3 mb-8"
+              variants={staggerChildrenVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {socialLinks.map((social, index) => (
+                <motion.a 
+                  key={index}
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-800 text-gray-400 hover:text-white transition-all"
+                  variants={fadeInUpVariants}
+                  whileHover={{ 
+                    y: -5,
+                    backgroundColor: social.hoverColor,
+                    color: "#fff",
+                    scale: 1.05,
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-lg">{social.icon}</span>
+                </motion.a>
+              ))}
+            </motion.div>
+            
+            {/* Newsletter */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold mb-3">Newsletter</h3>
+              <p className="text-sm text-gray-400 mb-3">
+                Abonnez-vous pour recevoir mes dernières actualités
+              </p>
+              <div className="flex">
+                <input 
+                  type="email" 
+                  placeholder="Votre email" 
+                  className="flex-1 bg-gray-800 border-0 rounded-l-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+                <motion.button 
+                  className="bg-orange-500 text-white px-4 py-2 rounded-r-lg"
+                  whileHover={{ backgroundColor: "#e34c01" }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FiArrowUpRight />
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Colonne des liens rapides */}
+          <motion.div 
+            className="md:col-span-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUpVariants}
+          >
+            <h3 className="text-xl font-bold mb-6 relative inline-block">
+              Liens Rapides
+              <motion.span 
+                className="absolute -bottom-1 left-0 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+            </h3>
+            
+            <motion.ul 
+              className="space-y-3"
+              variants={staggerChildrenVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {quickLinks.map((link, index) => (
+                <motion.li key={index} variants={fadeInUpVariants}>
+                  <Link href={link.href} className="group flex items-center text-gray-400 hover:text-white transition-colors">
+                    <motion.span 
+                      className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-2 opacity-0 group-hover:opacity-100"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    {link.title}
+                    <motion.span 
+                      className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      whileHover={{ x: 3 }}
+                    >
+                      →
+                    </motion.span>
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+          
+          {/* Colonne services */}
+          <motion.div 
+            className="md:col-span-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUpVariants}
+          >
+            <h3 className="text-xl font-bold mb-6 relative inline-block">
+              Services
+              <motion.span 
+                className="absolute -bottom-1 left-0 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+            </h3>
+            
+            <motion.ul 
+              className="space-y-3"
+              variants={staggerChildrenVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {["Développement Web", "DevOps", "Cloud", "API & Backend", "CI/CD", "Automatisation"].map((service, index) => (
+                <motion.li key={index} variants={fadeInUpVariants}>
+                  <Link href="/services" className="group flex items-center text-gray-400 hover:text-white transition-colors">
+                    <motion.span 
+                      className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 opacity-0 group-hover:opacity-100"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    {service}
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+          
+          {/* Colonne contact */}
+          <motion.div 
+            className="md:col-span-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUpVariants}
+          >
+            <h3 className="text-xl font-bold mb-6 relative inline-block">
+              Contact
+              <motion.span 
+                className="absolute -bottom-1 left-0 h-1 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+            </h3>
+            
+            <motion.ul 
+              className="space-y-5"
+              variants={staggerChildrenVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {contactInfo.map((contact, index) => (
+                <motion.li key={index} variants={fadeInUpVariants}>
+                  <div className="flex items-start group">
+                    <motion.div 
+                      className="w-10 h-10 rounded-lg flex items-center justify-center mr-3 shadow-md"
+                      style={{ 
+                        backgroundColor: `${contact.color}20`, 
+                        color: contact.color 
+                      }}
+                      whileHover={{ 
+                        scale: 1.1,
+                        backgroundColor: contact.color,
+                        color: "#fff"
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span className="text-lg">{contact.icon}</span>
+                    </motion.div>
+                    <div>
+                      <h4 className="text-xs font-semibold text-gray-500 tracking-wider">{contact.title}</h4>
+                      {contact.link ? (
+                        <a 
+                          href={contact.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-gray-300 hover:text-white transition-colors group-hover:text-white"
+                          style={{ color: `${contact.color}` }}
+                        >
+                          {contact.value}
+                        </a>
+                      ) : (
+                        <p className="text-gray-300 group-hover:text-white transition-colors">{contact.value}</p>
+                      )}
+                    </div>
+                  </div>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        </div>
+        
+        {/* Séparateur */}
+        <motion.div 
+          className="w-full h-px bg-gray-800 my-8"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        />
+        
+        {/* Copyright */}
+        <motion.div 
+          className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <p>&copy; {currentYear} Sekou Diabaté. Tous droits réservés.</p>
+          
+          <div className="mt-4 md:mt-0 flex space-x-6">
+            <Link href="/mentions-legales" className="hover:text-white transition-colors">
+              Mentions légales
+            </Link>
+            <Link href="/confidentialite" className="hover:text-white transition-colors">
+              Politique de confidentialité
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+      
+      {/* Bouton retour en haut */}
+      <motion.div 
+        className="absolute bottom-6 right-6"
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.button 
+          className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          whileHover={{ y: -5, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+        </motion.button>
+      </motion.div>
     </footer>
   );
 };

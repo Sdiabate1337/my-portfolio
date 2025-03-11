@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 const Services = () => {
   return (
     <section className="relative overflow-hidden py-20 bg-white">
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-100 to-transparent rounded-full -mr-32 -mt-16 opacity-50"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-purple-100 to-transparent rounded-full -ml-40 -mb-20 opacity-50"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Area */}
@@ -141,7 +144,7 @@ const Services = () => {
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-3">AI Agent Automation</h3>
                   <p className="text-gray-600 mb-4">
-                   Créer des agents intelligents capables d’automatiser des processus complexes.
+                   Créer des agents intelligents capables d'automatiser des processus complexes.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-gray-700">
@@ -165,68 +168,216 @@ const Services = () => {
             </motion.div>
           </div>
 
-          {/* Right Column - Images */}
+          {/* Right Column - Creative Design Illustrations */}
           <div className="w-full lg:w-2/5 space-y-6">
+            {/* Backend Development - Creative Design */}
             <motion.div 
-              className="rounded-lg overflow-hidden shadow-md h-60"
+              className="rounded-lg overflow-hidden shadow-lg h-60 relative group"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               whileHover={{ y: -5 }}
             >
-              <div className="relative h-full w-full">
-                <Image 
-                  src="/images/service-image-1.jpg" 
-                  alt="Office workspace with plants" 
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/600x300/f9f9f9/333?text=Office+Workspace";
-                  }}
-                />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FF5E15] to-[#FF9D6C] opacity-90"></div>
+              <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
+              
+              {/* Code-like Elements */}
+              <div className="absolute top-4 left-4 right-4 h-8 bg-black/20 rounded flex items-center px-3">
+                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
               </div>
+              
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
+                <h3 className="font-mono text-white text-4xl font-bold mb-2 tracking-tighter">
+                  <span className="opacity-70">{"<"}</span>
+                  Backend
+                  <span className="opacity-70">{"/>"}</span>
+                </h3>
+                <p className="text-white/80 font-mono text-sm tracking-tight mb-4 text-center">
+                  Node.js • TypeScript • API • MongoDB
+                </p>
+                <div className="relative">
+                  {/* Server Icon */}
+                  <div className="w-16 h-16 border-2 border-white/50 rounded-lg flex items-center justify-center mx-auto">
+                    <div className="w-10 h-2 bg-white/70 rounded-full mb-1"></div>
+                    <div className="w-10 h-2 bg-white/70 rounded-full"></div>
+                  </div>
+                  {/* Connection Lines */}
+                  <div className="absolute top-full left-1/2 w-0.5 h-6 bg-white/50"></div>
+                </div>
+              </div>
+              
+              {/* Animation dots */}
+              <motion.div 
+                className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1"
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </motion.div>
             </motion.div>
             
+            {/* CI/CD Automations - Creative Design */}
             <motion.div 
-              className="rounded-lg overflow-hidden shadow-md h-64"
+              className="rounded-lg overflow-hidden shadow-lg h-64 relative group"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
               whileHover={{ y: -5 }}
             >
-              <div className="relative h-full w-full">
-                <Image 
-                  src="/images/service-image-2.jpg" 
-                  alt="UI/UX designs on devices" 
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/600x320/f9f9f9/333?text=UI/UX+Designs";
-                  }}
-                />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4CAF50] to-[#81C784] opacity-90"></div>
+              <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
+              
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
+                <h3 className="font-mono text-white text-4xl font-bold mb-2 tracking-tighter">CI/CD</h3>
+                
+                {/* Pipeline Flow Animation */}
+                <div className="relative w-48 h-20 mb-3">
+                  {/* Connection Line */}
+                  <div className="absolute top-1/2 left-0 right-0 h-1 bg-white/30 -translate-y-1/2"></div>
+                  
+                  {/* Nodes with Animation */}
+                  <motion.div 
+                    className="absolute top-1/2 left-0 w-6 h-6 rounded-full bg-white -translate-y-1/2 flex items-center justify-center"
+                    animate={{ boxShadow: ["0 0 0px white", "0 0 10px white", "0 0 0px white"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                  >
+                    <span className="text-green-600 font-bold text-xs">1</span>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="absolute top-1/2 left-1/4 w-6 h-6 rounded-full bg-white -translate-y-1/2 -translate-x-1/2 flex items-center justify-center"
+                    animate={{ boxShadow: ["0 0 0px white", "0 0 10px white", "0 0 0px white"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  >
+                    <span className="text-green-600 font-bold text-xs">2</span>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="absolute top-1/2 left-1/2 w-6 h-6 rounded-full bg-white -translate-y-1/2 -translate-x-1/2 flex items-center justify-center"
+                    animate={{ boxShadow: ["0 0 0px white", "0 0 10px white", "0 0 0px white"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  >
+                    <span className="text-green-600 font-bold text-xs">3</span>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="absolute top-1/2 left-3/4 w-6 h-6 rounded-full bg-white -translate-y-1/2 -translate-x-1/2 flex items-center justify-center"
+                    animate={{ boxShadow: ["0 0 0px white", "0 0 10px white", "0 0 0px white"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                  >
+                    <span className="text-green-600 font-bold text-xs">4</span>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="absolute top-1/2 right-0 w-6 h-6 rounded-full bg-white -translate-y-1/2 flex items-center justify-center"
+                    animate={{ boxShadow: ["0 0 0px white", "0 0 10px white", "0 0 0px white"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+                  >
+                    <span className="text-green-600 font-bold text-xs">5</span>
+                  </motion.div>
+                  
+                  {/* Moving Dot */}
+                  <motion.div 
+                    className="absolute top-1/2 left-0 w-3 h-3 rounded-full bg-white/80 -translate-y-1/2"
+                    animate={{ 
+                      left: ["0%", "100%"],
+                      scale: [1, 1.2, 1] 
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  ></motion.div>
+                </div>
+                
+                <p className="text-white/80 font-mono text-sm tracking-tight text-center">
+                  Pipelines • GitHub Actions • Docker • K8s
+                </p>
               </div>
             </motion.div>
             
+            {/* AI Agent Automation - Creative Design */}
             <motion.div 
-              className="rounded-lg overflow-hidden shadow-md h-56"
+              className="rounded-lg overflow-hidden shadow-lg h-56 relative group"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.6 }}
               whileHover={{ y: -5 }}
             >
-              <div className="relative h-full w-full">
-                <Image 
-                  src="/images/service-image-3.jpg" 
-                  alt="Mobile app screens" 
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/600x280/f9f9f9/333?text=Mobile+App+Screens";
-                  }}
-                />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#9C27B0] to-[#BA68C8] opacity-90"></div>
+              <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
+              
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
+                <h3 className="font-mono text-white text-4xl font-bold mb-4 tracking-tighter">
+                  <span className="opacity-70">AI</span>•Agent
+                </h3>
+                
+                {/* Brain Network Visualization */}
+                <div className="relative w-40 h-20 mb-2">
+                  {/* Nodes */}
+                  <motion.div 
+                    className="absolute w-4 h-4 bg-white rounded-full"
+                    style={{ left: '20%', top: '10%' }}
+                    animate={{ 
+                      boxShadow: ["0 0 0px rgba(255,255,255,0.8)", "0 0 8px rgba(255,255,255,0.8)", "0 0 0px rgba(255,255,255,0.8)"]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                  ></motion.div>
+                  
+                  <motion.div 
+                    className="absolute w-3 h-3 bg-white/80 rounded-full"
+                    style={{ left: '65%', top: '15%' }}
+                    animate={{ 
+                      boxShadow: ["0 0 0px rgba(255,255,255,0.8)", "0 0 8px rgba(255,255,255,0.8)", "0 0 0px rgba(255,255,255,0.8)"]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  ></motion.div>
+                  
+                  <motion.div 
+                    className="absolute w-5 h-5 bg-white rounded-full"
+                    style={{ left: '45%', top: '40%' }}
+                    animate={{ 
+                      boxShadow: ["0 0 0px rgba(255,255,255,0.8)", "0 0 10px rgba(255,255,255,0.8)", "0 0 0px rgba(255,255,255,0.8)"]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.7 }}
+                  ></motion.div>
+                  
+                  <motion.div 
+                    className="absolute w-3 h-3 bg-white/80 rounded-full"
+                    style={{ left: '10%', top: '65%' }}
+                    animate={{ 
+                      boxShadow: ["0 0 0px rgba(255,255,255,0.8)", "0 0 8px rgba(255,255,255,0.8)", "0 0 0px rgba(255,255,255,0.8)"]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1.1 }}
+                  ></motion.div>
+                  
+                  <motion.div 
+                    className="absolute w-4 h-4 bg-white/90 rounded-full"
+                    style={{ left: '75%', top: '70%' }}
+                    animate={{ 
+                      boxShadow: ["0 0 0px rgba(255,255,255,0.8)", "0 0 8px rgba(255,255,255,0.8)", "0 0 0px rgba(255,255,255,0.8)"]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                  ></motion.div>
+                  
+                  {/* Connection Lines */}
+                  <div className="absolute w-px h-14 bg-white/30" style={{ left: '21%', top: '11%', transform: 'rotate(60deg)' }}></div>
+                  <div className="absolute w-px h-24 bg-white/30" style={{ left: '46%', top: '15%', transform: 'rotate(105deg)' }}></div>
+                  <div className="absolute w-px h-16 bg-white/30" style={{ left: '46%', top: '42%', transform: 'rotate(150deg)' }}></div>
+                  <div className="absolute w-px h-30 bg-white/30" style={{ left: '47%', top: '42%', transform: 'rotate(30deg)' }}></div>
+                </div>
+                
+                <p className="text-white/80 font-mono text-sm tracking-tight text-center">
+                  LangChain • LLMs • n8n • Agents
+                </p>
               </div>
             </motion.div>
           </div>
