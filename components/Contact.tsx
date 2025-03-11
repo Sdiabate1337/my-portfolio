@@ -48,7 +48,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#1A1A1A]">PHONE</h3>
-                  <p className="text-gray-600">+8801744515670</p>
+                  <p className="text-gray-600">+212 714460468</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -59,7 +59,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#1A1A1A]">GMAIL</h3>
-                  <p className="text-gray-600">mosharafhussain.manu@gmail.com</p>
+                  <p className="text-gray-600">diabatesekou1337@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -70,7 +70,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#1A1A1A]">LOCATION</h3>
-                  <p className="text-gray-600">Jamalpur Sadar, Jamalpur Bangladesh</p>
+                  <p className="text-gray-600">Marrakech, Maroc</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -83,7 +83,7 @@ const Contact = () => {
                   <h3 className="text-lg font-bold text-[#1A1A1A]">WHATSAPP</h3>
                   <p className="text-gray-600">
                     <a href="https://wa.me/8801744515670" target="_blank" rel="noopener noreferrer" className="text-green-500 hover:underline">
-                      +8801744515670
+                      +212 714460468
                     </a>
                   </p>
                 </div>
@@ -102,7 +102,7 @@ const Contact = () => {
           >
             <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-lg">
               <div>
-                <label className="block text-gray-700 font-medium">Your Name:</label>
+                <label className="block text-gray-700 font-medium">Votre Nom:</label>
                 <input 
                   type="text" 
                   name="name" 
@@ -113,7 +113,7 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-medium">Your Email:</label>
+                <label className="block text-gray-700 font-medium">Votre mail:</label>
                 <input 
                   type="email" 
                   name="email" 
@@ -124,7 +124,7 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-medium">Your Subject:</label>
+                <label className="block text-gray-700 font-medium">Votre besoin:</label>
                 <input 
                   type="text" 
                   name="subject" 

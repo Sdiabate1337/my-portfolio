@@ -66,9 +66,9 @@ const Experience = () => {
                     logoSrc="/images/wordpress-logo.png"
                     logoAlt="WordPress Logo"
                     logoColor="#21759B"
-                    title="WordPress Web Developer"
-                    company="Codecanyon"
-                    description="Education encompasses both the teaching and learning of knowledge, proper conduct, and technical competency. It thus focuses on the cultivation of skills, trades or professions."
+                    title="IT architect C/C++ developer"
+                    company="1337 coding school, Benguerir"
+                    description="Dans ce parcours, je travaille sur le développement de systèmes, de réseaux, de jeux et d'un chat IRC en C et C++, en me concentrant sur la résolution de défis informatiques complexes grâce à la programmation bas niveau et à une architecture efficace."
                   />
                 </motion.div>
                 
@@ -81,32 +81,13 @@ const Experience = () => {
                 >
                   {/* Full Stack Web Developer Card */}
                   <ExperienceCard 
-                    period="2022 - Present"
+                    period="août 2023 - janv. 2025"
                     logoSrc="/images/vscode-logo.png"
                     logoAlt="VS Code Logo"
                     logoColor="#0078D7"
-                    title="Full Stack Web Developer"
-                    company="Codecanyon"
-                    description="Education encompasses both the teaching and learning of knowledge, proper conduct, and technical competency. It thus focuses on the cultivation of skills, trades or professions."
-                  />
-                </motion.div>
-                
-                <motion.div
-                  key="experience3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {/* Lead Developer Card */}
-                  <ExperienceCard 
-                    period="2022 - Present"
-                    logoSrc="/images/custom-logo.png"
-                    logoAlt="Custom Logo"
-                    logoColor="#8E44AD"
-                    title="LEAD DEVELOPER"
-                    company="Codecanyon"
-                    description="Education encompasses both the teaching and learning of knowledge, proper conduct, and technical competency. It thus focuses on the cultivation of skills, trades or professions."
+                    title="DevSecOp Full Stack Developer"
+                    company="ValeX, Canada"
+                    description="Dans ce stage, je réorganise l'environnement de travail des développeurs en appliquant les principes du DevSecOps, en mettant en place un pipeline CI/CD pour automatiser les processus et garantir un niveau minimal de risque de sécurité sur la plateforme."
                   />
                 </motion.div>
                 
@@ -119,13 +100,32 @@ const Experience = () => {
                 >
                   {/* Shopify Developer Card */}
                   <ExperienceCard 
-                    period="2022 - Present"
+                    period="2023 - Present"
                     logoSrc="/images/shopify-logo.png"
                     logoAlt="Shopify Logo"
                     logoColor="#7AB55C"
-                    title="Shopify Developer"
-                    company="Codecanyon"
-                    description="Education encompasses both the teaching and learning of knowledge, proper conduct, and technical competency. It thus focuses on the cultivation of skills, trades or professions."
+                    title="Developpeur freelance"
+                    company="freelance"
+                    description="En tant que développeur freelance, j'ai travaillé sur divers projets, en développant des solutions personnalisées, en optimisant les performances et en assurant la livraison de produits de qualité dans les délais impartis."
+                  />
+                </motion.div>
+
+                <motion.div
+                  key="experience3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {/* Lead Developer Card */}
+                  <ExperienceCard 
+                    period="2024 - Present"
+                    logoSrc="/images/custom-logo.png"
+                    logoAlt="Custom Logo"
+                    logoColor="#8E44AD"
+                    title="Web designer"
+                    company="freelance"
+                    description="En tant que web designer freelance, j'ai créé des sites web esthétiques et fonctionnels, en travaillant sur la conception, l'ergonomie et l'optimisation pour offrir une expérience utilisateur optimale."
                   />
                 </motion.div>
               </>
@@ -144,9 +144,9 @@ const Experience = () => {
                     logoSrc="/images/wordpress-logo.png"
                     logoAlt="WordPress Logo"
                     logoColor="#21759B"
-                    title="WordPress Web Developer"
+                    title="Web designer"
                     school="Codecanyon"
-                    description="Education encompasses both the teaching and learning of knowledge, proper conduct, and technical competency. It thus focuses on the cultivation of skills, trades or professions."
+                    description="En tant que web designer freelance, j'ai créé des sites web esthétiques et fonctionnels, en travaillant sur la conception, l'ergonomie et l'optimisation pour offrir une expérience utilisateur optimale."
                   />
                 </motion.div>
 
