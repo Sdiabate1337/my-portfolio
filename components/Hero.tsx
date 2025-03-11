@@ -82,7 +82,7 @@ const Hero = () => {
             >
               <h2 className="text-sm uppercase tracking-wider text-custom-orange font-semibold mb-4">Professional Services</h2>
               <p className="text-gray-800 leading-relaxed mb-8 text-lg">
-              Digital Architect @42Network(1337Benguerir) | Passionné de DevSecOps, j conçois des architectures scalables et sécurisées. J’explore aussi l’IA pour enrichir et automatiser les systèmes.
+              Digital Architect @42Network(1337Benguerir) | Passionné de DevSecOps, Je conçois des architectures logicielles scalables, sécurisées et adaptées aux startups et PME, garantissant performance, fiabilité et évolution sans friction.
               </p>
               
               <Link 
