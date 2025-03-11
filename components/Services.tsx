@@ -3,12 +3,7 @@ import { motion } from 'framer-motion';
 
 const Services = () => {
   return (
-    <section className="hero-bg relative overflow-hidden py-20">
-      {/* Background Elements - Même style que Hero */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient opacity-20 pointer-events-none">
-        <div className="absolute top-10 left-10 w-40 h-40 rounded-full bg-white/10 blur-3xl"></div>
-        <div className="absolute bottom-40 right-10 w-60 h-60 rounded-full bg-white/10 blur-3xl"></div>
-      </div>
+    <section className="relative overflow-hidden py-20 bg-white">
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Area */}
@@ -42,7 +37,7 @@ const Services = () => {
           <div className="w-full lg:w-3/5 space-y-8">
             {/* Service Card 1 - Orange */}
             <motion.div 
-              className="relative bg-white p-8 rounded-lg shadow-md border-l-4 border-[#FF5E15] group hover:shadow-xl transition-all"
+              className="relative bg-[#FFF4E8] p-8 rounded-lg shadow-md border-l-4 border-[#FF5E15] group hover:shadow-xl transition-all"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -51,8 +46,8 @@ const Services = () => {
             >
               <div className="flex">
                 <div className="mr-6">
-                  <div className="w-14 h-14 rounded-full bg-[#FFF4E8] flex items-center justify-center">
-                    <svg className="w-7 h-7 text-[#FF5E15]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-14 h-14 rounded-full bg-[#FF5E15] flex items-center justify-center">
+                    <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -77,7 +72,7 @@ const Services = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#FFF4E8] group-hover:text-[#FFE0C4] transition-colors">
+                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#FFE0C4] group-hover:text-[#FF5E15] transition-colors">
                   01
                 </div>
               </div>
@@ -85,7 +80,7 @@ const Services = () => {
 
             {/* Service Card 2 - Green */}
             <motion.div 
-              className="relative bg-white p-8 rounded-lg shadow-md border-l-4 border-[#4CAF50] group hover:shadow-xl transition-all"
+              className="relative bg-[#E8F5E9] p-8 rounded-lg shadow-md border-l-4 border-[#4CAF50] group hover:shadow-xl transition-all"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -94,8 +89,8 @@ const Services = () => {
             >
               <div className="flex">
                 <div className="mr-6">
-                  <div className="w-14 h-14 rounded-full bg-[#E8F5E9] flex items-center justify-center">
-                    <svg className="w-7 h-7 text-[#4CAF50]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-14 h-14 rounded-full bg-[#4CAF50] flex items-center justify-center">
+                    <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -120,7 +115,7 @@ const Services = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#E8F5E9] group-hover:text-[#C8E6C9] transition-colors">
+                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#C8E6C9] group-hover:text-[#4CAF50] transition-colors">
                   02
                 </div>
               </div>
@@ -128,7 +123,7 @@ const Services = () => {
 
             {/* Service Card 3 - Purple */}
             <motion.div 
-              className="relative bg-white p-8 rounded-lg shadow-md border-l-4 border-[#9C27B0] group hover:shadow-xl transition-all"
+              className="relative bg-[#F3E5F5] p-8 rounded-lg shadow-md border-l-4 border-[#9C27B0] group hover:shadow-xl transition-all"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -137,8 +132,8 @@ const Services = () => {
             >
               <div className="flex">
                 <div className="mr-6">
-                  <div className="w-14 h-14 rounded-full bg-[#F3E5F5] flex items-center justify-center">
-                    <svg className="w-7 h-7 text-[#9C27B0]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-14 h-14 rounded-full bg-[#9C27B0] flex items-center justify-center">
+                    <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -163,7 +158,7 @@ const Services = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#F3E5F5] group-hover:text-[#E1BEE7] transition-colors">
+                <div className="absolute top-0 right-0 mt-6 mr-8 text-5xl font-bold text-[#E1BEE7] group-hover:text-[#9C27B0] transition-colors">
                   03
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface RecentProjectCardProps {
@@ -14,29 +14,29 @@ interface RecentProjectCardProps {
 const RecentProjectCard = ({ imageSrc, imageAlt, title, description, link, onClick }: RecentProjectCardProps) => {
   return (
     <motion.div 
-      className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 transition-transform transform hover:-translate-y-2 cursor-pointer"
+      className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 transition-transform transform hover:-translate-y-2 cursor-pointer overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       onClick={onClick}
     >
-      <div className="relative w-full h-48 mb-4">
+      <div className="relative w-full h-48 mb-4 overflow-hidden">
         <Image 
           src={imageSrc} 
           alt={imageAlt} 
           layout="fill" 
-          className="object-cover rounded-lg"
+          className="object-cover rounded-lg transition-transform duration-300 hover:scale-110"
         />
       </div>
       <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
       <p className="text-gray-600 text-sm mb-4">{description}</p>
-      <a 
-        href={link} 
+      <button 
         className="inline-block px-4 py-2 bg-[#FF5E15] text-white rounded-md font-medium transition-all hover:bg-[#e54e0f]"
+        onClick={onClick}
       >
         Voir le projet
-      </a>
+      </button>
     </motion.div>
   );
 };
@@ -54,32 +54,46 @@ interface ProjectPopupProps {
 
 const ProjectPopup = ({ project, onClose }: ProjectPopupProps) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 shadow-lg relative max-w-lg w-full">
-        <button 
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-          onClick={onClose}
+    <AnimatePresence>
+      <motion.div 
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.div 
+          className="bg-white rounded-lg p-6 shadow-lg relative max-w-lg w-full"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0.8 }}
+          transition={{ duration: 0.3 }}
         >
-          &times;
-        </button>
-        <div className="relative w-full h-48 mb-4">
-          <Image 
-            src={project.imageSrc} 
-            alt={project.imageAlt} 
-            layout="fill" 
-            className="object-cover rounded-lg"
-          />
-        </div>
-        <h3 className="text-lg font-bold text-gray-900 mb-2">{project.title}</h3>
-        <p className="text-gray-600 text-sm mb-4">{project.description}</p>
-        <a 
-          href={project.link} 
-          className="inline-block px-4 py-2 bg-[#FF5E15] text-white rounded-md font-medium transition-all hover:bg-[#e54e0f]"
-        >
-          Voir le projet
-        </a>
-      </div>
-    </div>
+          <button 
+            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+            onClick={onClose}
+          >
+            &times;
+          </button>
+          <div className="relative w-full h-48 mb-4 overflow-hidden">
+            <Image 
+              src={project.imageSrc} 
+              alt={project.imageAlt} 
+              layout="fill" 
+              className="object-cover rounded-lg"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-gray-900 mb-2">{project.title}</h3>
+          <p className="text-gray-600 text-sm mb-4">{project.description}</p>
+          <button 
+            className="inline-block px-4 py-2 bg-[#FF5E15] text-white rounded-md font-medium transition-all hover:bg-[#e54e0f]"
+            onClick={onClose}
+          >
+            Fermer
+          </button>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
