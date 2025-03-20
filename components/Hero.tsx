@@ -396,12 +396,7 @@ const Hero = () => {
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
-                  <Image 
-                    src="/images/IMG_1233.png" 
-                    alt="Diabate Sekou" 
-                    fill
-                    className="object-cover"
-                  />
+                  
                   <div className="absolute inset-0 bg-green-500/20 mix-blend-overlay"></div>
                 </motion.div>
                 
@@ -504,7 +499,7 @@ const Hero = () => {
               >
                 <Link 
                   href="/portfolio" 
-                  className="relative inline-flex items-center justify-center px-8 py-3 bg-custom-orange text-white font-semibold rounded-lg shadow-md overflow-hidden group"
+                  className="relative inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-custom-orange to-orange-600 text-white font-semibold rounded-lg shadow-lg overflow-hidden group hover:shadow-orange-500/30 transition-all duration-300"
                   aria-label="Mon portfolio"
                 >
                   {/* Effet de brillance au survol */}
@@ -515,11 +510,25 @@ const Hero = () => {
                     aria-hidden="true"
                   />
                   
+                  {/* Ajout d'un effet de pulse */}
+                  <motion.span 
+                    className="absolute inset-0 rounded-lg opacity-0 bg-white"
+                    initial={{ scale: 0.85, opacity: 0 }}
+                    whileHover={{ 
+                      scale: 1.2, 
+                      opacity: 0.2,
+                      transition: { repeat: Infinity, duration: 1.5 }
+                    }}
+                    aria-hidden="true"
+                  />
+                  
                   <span className="relative z-10 flex items-center">
-                    <span>MON PORTFOLIO</span>
+                    <Link href="/projects" passHref>
+                    <span className="mr-2">MON PORTFOLIO</span>
+                    </Link>
                     <motion.span 
-                      className="ml-2"
-                      whileHover={{ x: 4 }}
+                      className="ml-2 bg-white/20 p-1 rounded-full"
+                      whileHover={{ x: 4, scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 400 }}
                       aria-hidden="true"
                     >
