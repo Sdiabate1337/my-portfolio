@@ -9,6 +9,15 @@ import { loadFull } from 'tsparticles';
 import type { Container, Engine } from 'tsparticles-engine';
 
 const Hero = () => {
+  // Détection des préférences utilisateur
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
+  
+  const isMobile = typeof window !== 'undefined' 
+    ? window.innerWidth < 768 
+    : false;
+
   const [activeSkillIndex, setActiveSkillIndex] = useState<number | null>(null);
   const [isHoveringPhoto, setIsHoveringPhoto] = useState(false);
   const controls = useAnimation();
@@ -29,16 +38,16 @@ const Hero = () => {
   };
   
   const particlesLoaded = async (container: Container | undefined) => {
-    console.log("Particles container loaded", container);
+    // Console log supprimé
   };
 
-  // Variantes d'animation pour différents éléments
+  // Variantes d'animation adaptées pour l'accessibilité
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: prefersReducedMotion ? 0 : 0.2,
         delayChildren: 0.3,
       },
     },
@@ -61,7 +70,7 @@ const Hero = () => {
       transition: { 
         duration: 0.8, 
         ease: "easeOut",
-        staggerChildren: 0.1,
+        staggerChildren: prefersReducedMotion ? 0 : 0.1,
         delayChildren: 0.2
       }
     },
@@ -95,14 +104,14 @@ const Hero = () => {
       opacity: 1,
       scale: 1,
       transition: { 
-        delay: 0.8 + (i * 0.1),
+        delay: prefersReducedMotion ? 0 : 0.8 + (i * 0.1),
         duration: 0.5,
         ease: "easeOut"
       }
     }),
     hover: {
-      scale: 1.08,
-      y: -5,
+      scale: prefersReducedMotion ? 1 : 1.08,
+      y: prefersReducedMotion ? 0 : -5,
       boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
       transition: { 
         type: "spring", 
@@ -110,7 +119,7 @@ const Hero = () => {
         damping: 10
       }
     },
-    tap: { scale: 0.98 }
+    tap: { scale: prefersReducedMotion ? 1 : 0.98 }
   };
 
   const nameLetterVariants: Variants = {
@@ -119,7 +128,7 @@ const Hero = () => {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0.5 + (i * 0.08),
+        delay: prefersReducedMotion ? 0 : 0.5 + (i * 0.08),
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1]
       }
@@ -128,10 +137,10 @@ const Hero = () => {
 
   const floatVariants: Variants = {
     float: {
-      y: [0, -10, 0],
+      y: prefersReducedMotion ? 0 : [0, -10, 0],
       transition: {
         duration: 3.5,
-        repeat: Infinity,
+        repeat: prefersReducedMotion ? 0 : Infinity,
         repeatType: "reverse",
         ease: "easeInOut"
       }
@@ -140,10 +149,10 @@ const Hero = () => {
 
   const rotateVariants: Variants = {
     rotate: {
-      rotate: [0, 360],
+      rotate: prefersReducedMotion ? 0 : [0, 360],
       transition: {
         duration: 20,
-        repeat: Infinity,
+        repeat: prefersReducedMotion ? 0 : Infinity,
         ease: "linear"
       }
     }
@@ -203,7 +212,7 @@ const Hero = () => {
                   enable: true,
                   area: 800
                 },
-                value: 30
+                value: isMobile ? 15 : 30
               },
               opacity: {
                 value: 0.3
@@ -223,7 +232,7 @@ const Hero = () => {
       {/* Formes décoratives animées */}
       <motion.div 
         className="absolute top-20 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-cyan-500/10 to-blue-500/10 blur-3xl"
-        animate={{
+        animate={prefersReducedMotion ? {} : {
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3]
         }}
@@ -236,7 +245,7 @@ const Hero = () => {
       
       <motion.div 
         className="absolute bottom-40 right-10 w-60 h-60 rounded-full bg-gradient-to-br from-orange-500/10 to-red-500/10 blur-3xl"
-        animate={{
+        animate={prefersReducedMotion ? {} : {
           scale: [1, 1.3, 1],
           opacity: [0.2, 0.4, 0.2]
         }}
@@ -253,8 +262,8 @@ const Hero = () => {
         animate="rotate"
       />
 
-       {/* Background Elements */}
-       <div className="absolute top-0 left-0 w-full h-full bg-gradient opacity-20 pointer-events-none">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient opacity-20 pointer-events-none">
         <div className="absolute top-10 left-10 w-40 h-40 rounded-full bg-white/10 blur-3xl"></div>
         <div className="absolute bottom-40 right-10 w-60 h-60 rounded-full bg-white/10 blur-3xl"></div>
       </div>
@@ -297,6 +306,7 @@ const Hero = () => {
                     src="/images/diabate-se.jpeg" 
                     alt="Diabate Sekou" 
                     fill
+                    priority
                     className="object-cover"
                     style={{
                       transform: isHoveringPhoto ? 'scale(1.05)' : 'scale(1)',
@@ -460,6 +470,7 @@ const Hero = () => {
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
+                  aria-hidden="true"
                 />
                 Professional Services
               </motion.h2>
@@ -481,6 +492,7 @@ const Hero = () => {
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
                     transition={{ delay: 1.3, duration: 1 }}
+                    aria-hidden="true"
                   />
                 </motion.span>
                 {" "}
@@ -493,12 +505,14 @@ const Hero = () => {
                 <Link 
                   href="/portfolio" 
                   className="relative inline-flex items-center justify-center px-8 py-3 bg-custom-orange text-white font-semibold rounded-lg shadow-md overflow-hidden group"
+                  aria-label="Mon portfolio"
                 >
                   {/* Effet de brillance au survol */}
                   <motion.span 
                     className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full"
                     whileHover={{ x: "200%" }}
                     transition={{ duration: 1.5 }}
+                    aria-hidden="true"
                   />
                   
                   <span className="relative z-10 flex items-center">
@@ -507,6 +521,7 @@ const Hero = () => {
                       className="ml-2"
                       whileHover={{ x: 4 }}
                       transition={{ type: "spring", stiffness: 400 }}
+                      aria-hidden="true"
                     >
                       <FaArrowRight />
                     </motion.span>
@@ -522,7 +537,7 @@ const Hero = () => {
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                 <span className="block text-custom-blue">
-                  Hi, I&apos;m{" "}
+                  Bonjour, je suis{" "}
                   <span className="relative inline-block">
                     {nameText.split("").map((letter, index) => (
                       <motion.span
@@ -530,15 +545,18 @@ const Hero = () => {
                         custom={index}
                         variants={nameLetterVariants}
                         className="inline-block"
+                        aria-hidden="true"
                       >
                         {letter === " " ? "\u00A0" : letter}
                       </motion.span>
                     ))}
+                    <span className="sr-only">{nameText}</span>
                     <motion.span
                       className="absolute -bottom-2 left-0 h-1 bg-custom-orange rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ delay: 1.5, duration: 0.8 }}
+                      aria-hidden="true"
                     />
                   </span>
                 </span>
@@ -569,6 +587,7 @@ const Hero = () => {
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
+                  aria-hidden="true"
                 />
                 <span className="text-sm text-gray-700 font-medium">Plus de 3 ans en résolution de problèmes</span>
               </motion.div>
@@ -605,6 +624,7 @@ const Hero = () => {
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ delay: 1, duration: 0.8 }}
+                    aria-hidden="true"
                   />
                 </div>
                 
@@ -623,6 +643,8 @@ const Hero = () => {
                         }`}
                       onHoverStart={() => setActiveSkillIndex(index)}
                       onHoverEnd={() => setActiveSkillIndex(null)}
+                      role="button"
+                      aria-pressed={activeSkillIndex === index}
                     >
                       <motion.span 
                         className="mr-1.5"
@@ -630,6 +652,7 @@ const Hero = () => {
                           rotate: activeSkillIndex === index ? [0, -10, 10, -10, 0] : 0 
                         }}
                         transition={{ duration: 0.5, delay: 0.1 }}
+                        aria-hidden="true"
                       >
                         {skill.icon}
                       </motion.span>
@@ -653,6 +676,7 @@ const Hero = () => {
                           repeatType: "reverse",
                           delay: i * 0.3
                         }}
+                        aria-hidden="true"
                       >
                         <FaStar className="text-custom-orange h-3 w-3" />
                       </motion.span>
@@ -675,18 +699,5 @@ const Hero = () => {
     </section>
   );
 };
-
-// Skill pill component
-interface SkillPillProps {
-  icon: React.ReactNode;
-  text: string;
-}
-
-const SkillPill = ({ icon, text }: SkillPillProps) => (
-  <div className="skill-pill flex items-center bg-gradient-to-r from-gray-50 to-gray-100 px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-800 font-medium hover:shadow-md transition-all transform hover:-translate-y-0.5">
-    {icon}
-    {text}
-  </div>
-);
 
 export default Hero;
