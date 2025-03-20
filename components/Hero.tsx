@@ -294,13 +294,14 @@ const Hero = () => {
                   variants={photoItemVariants}
                 >
                   <Image 
-                    src="/images/photo1.jpg" 
+                    src="/images/diabate-se.jpeg" 
                     alt="Diabate Sekou" 
                     fill
                     className="object-cover"
                     style={{
                       transform: isHoveringPhoto ? 'scale(1.05)' : 'scale(1)',
-                      transition: 'transform 0.6s ease-out'
+                      transition: 'transform 0.6s ease-out',
+                      objectPosition: 'center top'
                     }}
                   />
                   {/* Overlay lors du survol */}
@@ -332,7 +333,7 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
                   <Image 
-                    src="/images/photo2.jpg" 
+                    src="/images/IMG_1142.png" 
                     alt="Diabate Sekou" 
                     fill
                     className="object-cover"
@@ -350,7 +351,7 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
                   <Image 
-                    src="/images/photo3.jpg" 
+                    src="/images/det.png" 
                     alt="Diabate Sekou" 
                     fill
                     className="object-cover"
@@ -368,7 +369,7 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
                   <Image 
-                    src="/images/photo4.jpg" 
+                    src="/images/cra.png " 
                     alt="Diabate Sekou" 
                     fill
                     className="object-cover"
@@ -386,7 +387,7 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
                   <Image 
-                    src="/images/photo5.jpg" 
+                    src="/images/IMG_1233.png" 
                     alt="Diabate Sekou" 
                     fill
                     className="object-cover"

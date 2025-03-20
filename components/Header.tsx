@@ -92,11 +92,12 @@ const Header = () => {
   // Fonction pour vérifier si un chemin est actif
   const isActive = (path: string) => currentPath === path;
 
+  // Mettre à jour les navLinks pour correspondre aux pages existantes et à créer
   const navLinks = [
     { name: "Accueil", path: "/" },
     { name: "À propos", path: "/about" },
     { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio" },
+    { name: "Projets", path: "/projects" },  // Changé de Portfolio à Projets pour correspondre à votre route existante
     { name: "Contact", path: "/contact" }
   ];
 

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Services = () => {
   return (
@@ -25,13 +26,15 @@ const Services = () => {
               My Quality Services
             </h2>
           </div>
-          <motion.button 
-            className="mt-6 md:mt-0 px-6 py-3 bg-[#FF5E15] text-white rounded hover:bg-[#e65513] transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            VIEW ALL SERVICES
-          </motion.button>
+          <Link href="/services">
+            <motion.div 
+              className="mt-6 md:mt-0 px-6 py-3 bg-[#FF5E15] text-white rounded hover:bg-[#e65513] transition-all cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              VIEW ALL SERVICES
+            </motion.div>
+          </Link>
         </motion.div>
 
         {/* Services Layout */}

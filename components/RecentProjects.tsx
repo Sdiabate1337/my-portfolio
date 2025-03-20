@@ -1,22 +1,9 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { FiExternalLink, FiX, FiArrowRight, FiGithub, FiCode, FiLayers } from 'react-icons/fi';
-
-// Types améliorés pour inclure plus d'informations sur les projets
-interface Project {
-  imageSrc: string;
-  imageAlt: string;
-  title: string;
-  description: string;
-  link: string;
-  category?: string; 
-  tags?: string[];
-  technologies?: string[];
-  githubLink?: string;
-  demoLink?: string;
-  featured?: boolean;
-}
+import { FiExternalLink, FiArrowRight, FiGithub } from 'react-icons/fi';
+import Link from 'next/link';
+import ProjectPopup, { Project } from './ProjectPopup';
 
 interface RecentProjectCardProps {
   project: Project;
@@ -63,15 +50,23 @@ const RecentProjectCard = ({ project, index, onClick }: RecentProjectCardProps) 
     }
   };
   
-  // Barre de progression
-  const progressBarColors = [
-    "from-[#FF5E15] to-[#FF8A50]",
-    "from-[#0078D7] to-[#00A9FF]",
-    "from-[#9C27B0] to-[#BA68C8]",
-    "from-[#4CAF50] to-[#81C784]"
-  ];
+  // Barre de progression avec couleurs basées sur la catégorie
+  const getCategoryColor = (category: string) => {
+    switch(category) {
+      case 'System Programming': return 'from-purple-500 to-purple-300';
+      case 'Graphisme': return 'from-emerald-500 to-emerald-300';
+      case 'Sysadmin & Infra': return 'from-blue-500 to-blue-300';
+      case 'Algo & Utils': return 'from-amber-500 to-amber-300';
+      case 'Fullstack': return 'from-rose-500 to-rose-300';
+      case 'IA & Commerce': return 'from-cyan-500 to-cyan-300';
+      case 'Réseaux': return 'from-indigo-500 to-indigo-300';
+      default: return 'from-[#FF5E15] to-[#FF8A50]';
+    }
+  };
 
-  const progressBarColor = progressBarColors[index % progressBarColors.length];
+  const progressBarColor = project.category ? 
+    getCategoryColor(project.category) : 
+    'from-[#FF5E15] to-[#FF8A50]';
 
   return (
     <motion.div 
@@ -141,131 +136,66 @@ const RecentProjectCard = ({ project, index, onClick }: RecentProjectCardProps) 
             initial={{ opacity: 0.3 }}
             whileHover={{ opacity: 0.7 }}
           ></motion.div>
-          
-          {/* Animation de pulsation au survol */}
-          <motion.div 
-            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            whileHover={{ scale: 1.05 }}
-            transition={{ repeat: Infinity, repeatType: "reverse", duration: 1.5 }}
-          >
-            <motion.div 
-              className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FiArrowRight className="text-white text-lg" />
-            </motion.div>
-          </motion.div>
         </div>
         
         {/* Contenu de la carte */}
-        <div className="p-7 relative">
-          {/* Badges technologies */}
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+          <p className="text-gray-600 text-sm mb-6">{project.description}</p>
+          
+          {/* Technologies (limitées à 3 avec compteur pour le reste) */}
           {project.technologies && project.technologies.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-3">
-              {project.technologies.slice(0, 3).map((tech, i) => (
-                <motion.span 
-                  key={i}
-                  className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                  whileHover={{ y: -2, backgroundColor: "#f3f4f6" }}
-                >
-                  <span className="w-1.5 h-1.5 mr-1.5 rounded-full inline-block bg-gray-500"></span>
-                  {tech}
-                </motion.span>
+            <div className="flex flex-wrap gap-2 mb-5">
+              {project.technologies.slice(0, 3).map((tech, index) => (
+                <span key={index} className="px-2 py-1 text-xs bg-gray-100 rounded-md text-gray-700">{tech}</span>
               ))}
               {project.technologies.length > 3 && (
-                <motion.span 
-                  className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  +{project.technologies.length - 3}
-                </motion.span>
+                <span className="px-2 py-1 text-xs bg-gray-100 rounded-md text-gray-700">+{project.technologies.length - 3}</span>
               )}
             </div>
           )}
           
-          {/* Titre avec animation */}
-          <motion.h3 
-            className="text-xl font-bold text-gray-900 mb-2"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            {project.title}
-          </motion.h3>
-          
-          {/* Description */}
-          <motion.p 
-            className="text-gray-600 text-sm mb-5 line-clamp-2"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            {project.description}
-          </motion.p>
-          
-          {/* Actions */}
+          {/* Liens du projet */}
           <div className="flex justify-between items-center">
-            <motion.button 
-              className="relative overflow-hidden px-4 py-2 rounded-md font-medium text-white bg-[#FF5E15] inline-flex items-center group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.button
+              className="text-[#FF5E15] font-medium text-sm flex items-center"
+              whileHover={{ x: 3 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick();
+              }}
             >
-              <span className="relative z-10">Voir le projet</span>
-              <motion.span 
-                className="absolute inset-0 bg-gradient-to-r from-[#FF5E15] to-[#FF8A50]"
-                initial={{ x: "0%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
-              />
-              <motion.span 
-                className="ml-2 relative z-10"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              >
-                <FiArrowRight />
-              </motion.span>
+              Voir le projet
+              <FiExternalLink className="ml-1" />
             </motion.button>
             
-            {/* Liens rapides */}
-            <div className="flex space-x-3">
+            <div className="flex gap-2">
               {project.githubLink && (
-                <motion.a 
+                <motion.a
                   href={project.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
-                  whileHover={{ y: -3 }}
                   onClick={(e) => e.stopPropagation()}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  whileHover={{ y: -2 }}
                 >
                   <FiGithub size={16} />
                 </motion.a>
               )}
               
               {project.demoLink && (
-                <motion.a 
+                <motion.a
                   href={project.demoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
-                  whileHover={{ y: -3 }}
                   onClick={(e) => e.stopPropagation()}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  whileHover={{ y: -2 }}
                 >
                   <FiExternalLink size={16} />
                 </motion.a>
               )}
             </div>
-          </div>
-          
-          {/* Décoration */}
-          <div className="absolute -bottom-5 -right-5 w-20 h-20 opacity-5">
-            <svg viewBox="0 0 24 24" fill="#FF5E15" className="w-full h-full">
-              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2V9zm4-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
           </div>
         </div>
       </motion.div>
@@ -273,263 +203,111 @@ const RecentProjectCard = ({ project, index, onClick }: RecentProjectCardProps) 
   );
 };
 
-interface ProjectPopupProps {
-  project: Project;
-  onClose: () => void;
-}
-
-const ProjectPopup = ({ project, onClose }: ProjectPopupProps) => {
-  // Référence pour la détection du clic en dehors
-  const popupRef = useRef<HTMLDivElement>(null);
-  
-  // Gestion du clic en dehors pour fermer
-  const handleOutsideClick = (e: React.MouseEvent) => {
-    if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
-      onClose();
-    }
-  };
-  
-  return (
-    <AnimatePresence>
-      <motion.div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 md:p-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={handleOutsideClick}
-      >
-        <motion.div 
-          ref={popupRef}
-          className="bg-white rounded-xl shadow-2xl relative max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
-          initial={{ scale: 0.9, y: 30 }}
-          animate={{ scale: 1, y: 0 }}
-          exit={{ scale: 0.9, y: 30 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 300,
-            damping: 30
-          }}
-        >
-          {/* Barre supérieure avec titre et actions */}
-          <div className="flex items-center justify-between p-5 border-b border-gray-100">
-            <h3 className="text-xl font-bold text-gray-900 flex items-center">
-              <span className="w-2 h-6 bg-[#FF5E15] rounded-full mr-3"></span>
-              {project.title}
-            </h3>
-            
-            <div className="flex items-center gap-2">
-              {project.githubLink && (
-                <motion.a 
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiGithub size={18} />
-                </motion.a>
-              )}
-              
-              {project.demoLink && (
-                <motion.a 
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiExternalLink size={18} />
-                </motion.a>
-              )}
-              
-              <motion.button 
-                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                onClick={onClose}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FiX size={18} />
-              </motion.button>
-            </div>
-          </div>
-          
-          {/* Corps du popup avec scrolling si nécessaire */}
-          <div className="flex-grow overflow-y-auto">
-            {/* Image de couverture */}
-            <div className="relative w-full h-64 md:h-80">
-              <Image 
-                src={project.imageSrc} 
-                alt={project.imageAlt} 
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            </div>
-            
-            {/* Contenu du projet */}
-            <div className="p-6">
-              {/* Tags du projet */}
-              {project.tags && project.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, i) => (
-                    <motion.span 
-                      key={i}
-                      className="px-3 py-1 bg-[#FFF4E8] text-[#FF5E15] rounded-full text-xs font-medium"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 * i }}
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </div>
-              )}
-              
-              {/* Description détaillée */}
-              <div className="mb-8">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                  <FiLayers className="mr-2 text-[#FF5E15]" />
-                  À propos du projet
-                </h4>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  {project.description}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at eros euismod, finibus est in, dictum arcu. 
-                  Suspendisse non odio ut velit tristique facilisis. Vestibulum vitae risus massa.
-                </p>
-              </div>
-              
-              {/* Technologies utilisées */}
-              {project.technologies && project.technologies.length > 0 && (
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                    <FiCode className="mr-2 text-[#FF5E15]" />
-                    Technologies utilisées
-                  </h4>
-                  <div className="flex flex-wrap gap-3">
-                    {project.technologies.map((tech, i) => (
-                      <motion.span
-                        key={i}
-                        className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg text-sm"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 + i * 0.1 }}
-                        whileHover={{ y: -2, scale: 1.05 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {/* Section CTA */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 pt-6 border-t border-gray-100">
-                <motion.a 
-                  href={project.link || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3 bg-[#FF5E15] text-white rounded-lg font-medium transition-all hover:bg-[#e54e0f] flex items-center justify-center"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Visiter le site
-                  <FiExternalLink className="ml-2" />
-                </motion.a>
-                
-                <motion.button 
-                  className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium transition-all hover:bg-gray-50"
-                  onClick={onClose}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Fermer
-                </motion.button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  );
-};
-
 const RecentProjects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
-  // Données des projets enrichies
+  // Données des projets réels
   const projects: Project[] = [
     {
-      imageSrc: '/images/project1.png',
-      imageAlt: 'Project 1',
-      title: 'Portfolio Personnel',
-      description: 'Un portfolio moderne et responsive construit avec Next.js et TailwindCSS pour présenter mes projets et compétences.',
-      link: '#',
-      category: 'Web Design',
-      tags: ['Portfolio', 'Personnel', 'Frontend'],
-      technologies: ['Next.js', 'TailwindCSS', 'Framer Motion'],
-      githubLink: 'https://github.com/username/project1',
-      demoLink: 'https://project1.demo.com',
-      featured: true
+      imageSrc: '/images/transcendance.png',
+      imageAlt: 'ft-transcendance',
+      title: 'ft-transcendance',
+      description: 'Plateforme de jeu de ping-pong en ligne avec authentification, chat en temps réel et classements.',
+      link: 'https://github.com/yourusername/ft-transcendance',
+      category: 'Fullstack',
+      tags: ['Web', 'Jeu', 'Temps Réel', '42 Project'],
+      technologies: ['JavaScript vanilla', 'Python', 'Docker', 'WebSocket', 'Microservices'],
+      githubLink: 'https://github.com/yourusername/ft-transcendance',
+      demoLink: 'https://ft-transcendance-demo.example.com',
+      featured: true,
+      detailedDescription: `
+        Ce projet final de l'école 42 m'a permis de développer une application web complète avec une architecture microservices. J'ai implémenté:<br/><br/>
+        • Un système d'authentification OAuth avec double facteur<br/>
+        • Un jeu de ping-pong en temps réel avec matchmaking<br/>
+        • Une interface de chat avec canaux publics/privés et messages directs<br/>
+        • Un système de profil utilisateur avec avatars et statistiques<br/>
+        • Un tableau de classement global des joueurs<br/><br/>
+        L'architecture backend utilise des microservices Python communicant via API REST, tandis que le frontend est conçu en JavaScript vanilla pour des performances optimales.
+      `
     },
     {
-      imageSrc: '/images/project2.png',
-      imageAlt: 'Project 2',
-      title: 'Dashboard Analytics',
-      description: 'Un tableau de bord analytique pour visualiser et analyser les données clients avec des graphiques interactifs.',
-      link: '#',
-      category: 'Application Web',
-      tags: ['Dashboard', 'Analytics', 'Data Viz'],
-      technologies: ['React', 'Redux', 'D3.js', 'Firebase'],
-      githubLink: 'https://github.com/username/project2',
+      imageSrc: '/images/djula.png',
+      imageAlt: 'Djula - Commerce conversationnel',
+      title: 'Djula',
+      description: 'Plateforme e-commerce conversationnelle sur WhatsApp permettant aux utilisateurs d\'acheter via messagerie grâce à l\'IA.',
+      link: 'https://github.com/yourusername/djula',
+      category: 'IA & Commerce',
+      tags: ['E-commerce', 'WhatsApp', 'AI', 'Conversationnel'],
+      technologies: ['TypeScript', 'Supabase', 'WhatsApp Business API', 'OpenAI'],
+      githubLink: 'https://github.com/yourusername/djula',
+      demoLink: 'https://djula-demo.example.com',
+      featured: true,
+      detailedDescription: `
+        Djula est une innovation dans le domaine du commerce conversationnel:<br/><br/>
+        • Interface conversationnelle intuitive sur WhatsApp<br/>
+        • Intégration avec l'API OpenAI pour comprendre les requêtes clients<br/>
+        • Système de recommandation de produits personnalisé<br/>
+        • Traitement sécurisé des paiements via WhatsApp<br/>
+        • Suivi des commandes et communication automatisée<br/>
+        • Analytics pour comprendre le comportement des utilisateurs<br/><br/>
+        Ce projet novateur représente l'intersection entre l'IA, le e-commerce et les plateformes de messagerie, offrant une nouvelle façon d'acheter en ligne sans friction.
+      `
     },
     {
-      imageSrc: '/images/project3.png',
-      imageAlt: 'Project 3',
-      title: 'E-commerce Mobile',
-      description: 'Application mobile de e-commerce avec panier, paiement et suivi de commande.',
-      link: '#',
-      category: 'Mobile App',
-      tags: ['E-commerce', 'Mobile', 'UX Design'],
-      technologies: ['React Native', 'Redux', 'Node.js', 'MongoDB'],
-      demoLink: 'https://project3.demo.com',
+      imageSrc: '/images/cub3d.png',
+      imageAlt: 'Cub3D - Raycasting Engine',
+      title: 'Cub3D',
+      description: 'Moteur de rendu 3D inspiré de Wolfenstein 3D, créant une vue dynamique dans un labyrinthe avec techniques de raycasting.',
+      link: 'https://github.com/yourusername/cub3d',
+      category: 'Graphisme',
+      tags: ['3D', 'Raycasting', 'Jeu vidéo', '42 Project'],
+      technologies: ['C', 'MiniLibX', 'Mathématiques 3D', 'Algorithmes'],
+      githubLink: 'https://github.com/yourusername/cub3d',
+      featured: false,
+      detailedDescription: `
+        Dans ce projet graphique inspiré du légendaire Wolfenstein 3D, j'ai:<br/><br/>
+        • Implémenté un moteur de rendu 3D complet basé sur la technique du raycasting<br/>
+        • Développé un parseur de configuration pour charger des cartes de niveau<br/>
+        • Créé un système de collision et de mouvement fluide dans l'environnement<br/>
+        • Ajouté des textures sur les murs avec mapping correct<br/>
+        • Géré efficacement le rendu des sprites et des objets<br/>
+        • Optimisé les performances pour maintenir un framerate stable<br/><br/>
+        Ce projet a considérablement renforcé ma compréhension des mathématiques 3D et des techniques graphiques fondamentales utilisées dans le développement de jeux.
+      `
     },
     {
-      imageSrc: '/images/project4.png',
-      imageAlt: 'Project 4',
-      title: 'Chat AI Assistant',
-      description: 'Un assistant conversationnel alimenté par l\'IA pour répondre aux questions des utilisateurs.',
-      link: '#',
-      category: 'AI',
-      tags: ['Intelligence Artificielle', 'Chatbot', 'NLP'],
-      technologies: ['Python', 'TensorFlow', 'FastAPI', 'React'],
-      githubLink: 'https://github.com/username/project4',
-      featured: true
+      imageSrc: '/images/minishell.png',
+      imageAlt: 'Minishell',
+      title: 'Minishell',
+      description: 'Implémentation d\'un shell minimaliste reproduisant les fonctionnalités de base de bash, avec gestion des processus et redirections.',
+      link: 'https://github.com/yourusername/minishell',
+      category: 'System Programming',
+      tags: ['Shell', 'Unix', 'Processus', '42 Project'],
+      technologies: ['C', 'Processus', 'Descripteurs de fichiers', 'Parsing'],
+      githubLink: 'https://github.com/yourusername/minishell',
+      featured: true,
+      detailedDescription: `
+        Dans ce projet de programmation système, j'ai développé:<br/><br/>
+        • Un interpréteur de commandes shell minimaliste en C<br/>
+        • Un parseur robuste pour analyser les entrées utilisateur<br/>
+        • La gestion des processus avec fork() et execve()<br/>
+        • L'implémentation des redirections (>, >>, <) et des pipes (|)<br/>
+        • La gestion des variables d'environnement et des signaux<br/>
+        • Les commandes intégrées (cd, echo, pwd, export, unset, env, exit)<br/><br/>
+        Ce projet m'a permis d'acquérir une compréhension approfondie du fonctionnement des shells Unix et de la gestion des processus.
+      `
     }
   ];
 
   return (
     <section className="py-20 relative overflow-hidden bg-gray-50/50">
-      {/* Éléments décoratifs de fond */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-10 right-10 w-64 h-64 bg-[#FF5E15]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-80 h-80 bg-[#0078D7]/5 rounded-full blur-3xl"></div>
-        
-        <svg className="absolute top-0 right-0 w-32 h-32 text-[#FF5E15]/10" viewBox="0 0 200 200" fill="currentColor">
-          <path d="M46.2,-76.1C59.9,-69.5,70.8,-56.3,79.2,-41.8C87.5,-27.2,93.4,-11.2,90.6,2.8C87.8,16.8,76.4,28.8,66.6,41.6C56.8,54.3,48.8,67.9,37,75.5C25.3,83.2,9.9,84.9,-5.1,82C-20.1,79.2,-34.7,71.8,-46,62.1C-57.3,52.3,-65.1,40.3,-70.8,27C-76.5,13.8,-79.9,-0.7,-77.8,-14.3C-75.7,-27.9,-68.2,-40.6,-58,-50.3C-47.8,-60,-35,-66.7,-21.8,-71.9C-8.7,-77,4.8,-80.5,19,-79.3C33.1,-78.1,48,-82.8,46.2,-76.1Z" transform="translate(100 100)" />
-        </svg>
-        
-        <svg className="absolute bottom-0 left-0 w-48 h-48 text-[#0078D7]/10" viewBox="0 0 200 200" fill="currentColor">
-          <path d="M45.4,-77.1C58.1,-69.3,67,-54.6,73.6,-39.8C80.2,-25,84.5,-10.1,82.7,4.1C80.9,18.2,73,31.5,64.1,43.7C55.2,55.9,45.4,67,33,74.4C20.5,81.8,5.5,85.5,-8.2,84C-21.9,82.4,-34.4,75.7,-46.7,67.6C-58.9,59.5,-70.9,50,-76.7,37.6C-82.5,25.3,-82.1,10.1,-79.3,-4.1C-76.5,-18.3,-71.4,-31.6,-63.5,-43.3C-55.7,-54.9,-45.1,-65,-33.1,-72.3C-21.1,-79.6,-7.7,-84.2,6.1,-84.7C19.8,-85.2,39.6,-81.5,45.4,-77.1Z" transform="translate(100 100)" />
-        </svg>
+      {/* Éléments décoratifs en arrière-plan */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-purple-100 rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute bottom-10 left-20 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-40"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header Section */}
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -573,21 +351,22 @@ const RecentProjects = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <motion.a 
-            href="#" 
-            className="inline-flex items-center px-6 py-3 border-2 border-[#FF5E15] text-[#FF5E15] font-medium rounded-md hover:bg-[#FF5E15] hover:text-white transition-colors group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Voir tous les projets
-            <motion.span 
-              className="ml-2"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+          <Link href="/projects" passHref>
+            <motion.div 
+              className="inline-flex items-center px-6 py-3 border-2 border-[#FF5E15] text-[#FF5E15] font-medium rounded-md hover:bg-[#FF5E15] hover:text-white transition-colors group cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <FiArrowRight />
-            </motion.span>
-          </motion.a>
+              Voir tous les projets
+              <motion.span 
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                <FiArrowRight />
+              </motion.span>
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
       
